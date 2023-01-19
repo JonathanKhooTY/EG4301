@@ -37,8 +37,8 @@ void setup() {
   // Initalize UART, I2C bus, and connect to the micropressure sensor
   Serial.begin(115200);
   Wire.begin();
-  //tcaselect(1); //need to initialize this in setup
-  //tcaselect(2);
+  tcaselect(1); //need to initialize this in setup
+  tcaselect(2);
   /* The micropressure sensor uses default settings with the address 0x18 using Wire.
 
      The mircropressure sensor has a fixed I2C address, if another address is used it
@@ -92,6 +92,6 @@ void loop() {
   Serial.println(button2State);
   //Serial.println(" kPa");
   //Serial.println();
-  delay(500);
+  delay(1000);
   
 }

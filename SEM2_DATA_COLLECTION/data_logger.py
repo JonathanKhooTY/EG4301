@@ -1,11 +1,14 @@
 import serial
 import csv
 
-arduino_port = "/dev/cu.usbmodem1101"
+arduino_port = "/dev/cu.usbmodem11101"
 baud = 115200
 fileName = "data.csv"
 sensor_data = []
 header = ['sensor1','sensor2','button1','button2']
+with open(fileName,'w', encoding='UTF8',newline='') as f:
+        writer = csv.writer(f)
+        writer.writerow(header)
 
 ser = serial.Serial(arduino_port,baud)
 print("Connected to arduino port: " + arduino_port)
@@ -20,13 +23,12 @@ while (True):
     dataString = getData.decode('utf-8')
     parsedData = dataString[0:][:-2]
     reading = parsedData.split(",")
-    sensor_data.append(reading)
+    #sensor_data.append(reading)
     print(reading)
 
     
-    with open(fileName,'w', encoding='UTF8',newline='') as f:
+    with open(fileName,'a', encoding='UTF8',newline='') as f:
         writer = csv.writer(f)
-        writer.writerow(header)
-        writer.writerows(sensor_data)
+        writer.writerow(reading)
     
     
