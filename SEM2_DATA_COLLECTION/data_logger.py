@@ -1,11 +1,12 @@
 import serial
 import csv
+from datetime import datetime
 
 arduino_port = "/dev/cu.usbmodem1101"
 baud = 115200
 fileName = "data.csv"
 sensor_data = []
-header = ['sensor0_NOSENSORATTACHED','LowerLeft','UpperLeft','UpperRight','LeftButt','RightButt','Config_1_B0','Config_2_B1','Config_3_B2','Butt_Inflate_B3','Buff_Deflate_B4','Upper_Inflate_B5'
+header = ['Date/Time','sensor0_NOSENSORATTACHED','LowerLeft','UpperLeft','UpperRight','LeftButt','RightButt','Config_1_B0','Config_2_B1','Config_3_B2','Butt_Inflate_B3','Buff_Deflate_B4','Upper_Inflate_B5'
 ,'Upper_Deflate_B6','Lower_Inflate_B7','Lower_Deflate_B8']
 with open(fileName,'w', encoding='UTF8',newline='') as f:
         writer = csv.writer(f)
@@ -24,6 +25,8 @@ while (True):
     dataString = getData.decode('utf-8')
     parsedData = dataString[0:][:-2]
     reading = parsedData.split(",")
+    currentTime = str(datetime.now())
+    reading.insert(0,currentTime)
     #sensor_data.append(reading)
     print(reading)
 
