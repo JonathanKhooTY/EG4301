@@ -1,11 +1,12 @@
 import serial
 import csv
 
-arduino_port = "/dev/cu.usbmodem11101"
+arduino_port = "/dev/cu.usbmodem1101"
 baud = 115200
 fileName = "data.csv"
 sensor_data = []
-header = ['sensor0','sensor1','sensor2','sensor3','sensor4','sensor5','button0','button1','button2','button3','button4','button5']
+header = ['sensor0_NOSENSORATTACHED','LowerLeft','UpperLeft','UpperRight','LeftButt','RightButt','Config_1_B0','Config_2_B1','Config_3_B2','Butt_Inflate_B3','Buff_Deflate_B4','Upper_Inflate_B5'
+,'Upper_Deflate_B6','Lower_Inflate_B7','Lower_Deflate_B8']
 with open(fileName,'w', encoding='UTF8',newline='') as f:
         writer = csv.writer(f)
         writer.writerow(header)

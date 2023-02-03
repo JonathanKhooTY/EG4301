@@ -32,6 +32,9 @@ int button2State = 0;
 int button3State = 0;
 int button4State = 0;
 int button5State = 0;
+int button6State = 0;
+int button7State = 0;
+int button8State = 0;
 
 
 
@@ -112,6 +115,18 @@ void loop() {
     if (receivedData[5] == 0){
       button5State = 1;
     } 
+
+    if (receivedData[6] == 0){
+      button6State = 1;
+    } 
+
+    if (receivedData[7] == 0){
+      button7State = 1;
+    } 
+
+    if (receivedData[8] == 0){
+      button8State = 1;
+    } 
   }
   
   
@@ -166,7 +181,13 @@ void loop() {
   Serial.print(",");
   Serial.print(button4State);
   Serial.print(",");
-  Serial.println(button5State);
+  Serial.print(button5State);
+  Serial.print(",");
+  Serial.print(button6State);
+  Serial.print(",");
+  Serial.print(button7State);
+  Serial.print(",");
+  Serial.println(button8State);
   
   //Serial.println(" kPa");
   //Serial.println();
@@ -177,8 +198,9 @@ void loop() {
   button3State = 0;
   button4State = 0;
   button5State = 0;
-  //button1State = 1;
-  //button2State = 1;
+  button6State = 0;
+  button7State = 0;
+  button8State = 0;
   //delay(2);
   
 }
