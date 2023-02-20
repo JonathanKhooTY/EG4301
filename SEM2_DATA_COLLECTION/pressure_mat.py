@@ -2,12 +2,11 @@ import serial
 import csv
 from datetime import datetime
 
-arduino_port = "/dev/cu.usbmodem1101"
-baud = 115200
-fileName = "data.csv"
+arduino_port = "/dev/cu.usbmodem11301"
+baud = 9600
+fileName = "pressure_data.csv"
 sensor_data = []
-header = ['Date/Time','Right_Butt','Left_Butt','Right_Mid','Left_Mid','NIL','Left_LowerThigh','Config_1_B0','Config_2_B1','Config_3_B2','Butt_Inflate_B3','Buff_Deflate_B4','Upper_Inflate_B5'
-,'Upper_Deflate_B6','Lower_Inflate_B7','Lower_Deflate_B8']
+header = ['Date/Time','LU','RU','LM','RM','LB','RB']
 with open(fileName,'w', encoding='UTF8',newline='') as f:
         writer = csv.writer(f)
         writer.writerow(header)
