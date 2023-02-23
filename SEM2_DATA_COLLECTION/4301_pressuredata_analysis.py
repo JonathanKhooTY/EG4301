@@ -11,9 +11,10 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import figure
+from scipy.signal import savgol_filter
 
 # Load data into a pandas DataFrame
-data = pd.read_csv('work_posture.csv',index_col=False)
+data = pd.read_csv('pressure_data3.csv',index_col=False)
 
 data
 #%%
@@ -81,6 +82,34 @@ plt.savefig('scatter_plot.png')
 plt.legend(loc="upper left")
 # Show the plot
 plt.show()
+# %%
+#Plot filtered
+window_size = 30
+order = 3
+
+lb_filtered = savgol_filter(lb,window_size,order)
+mb_filtered = savgol_filter(mb,window_size,order)
+rb_filtered = savgol_filter(rb,window_size,order)
+lm_filtered = savgol_filter(lm,window_size,order)
+mm_filtered = savgol_filter(mm,window_size,order)
+rm_filtered = savgol_filter(rm,window_size,order)
+lu_filtered = savgol_filter(lu,window_size,order)
+mu_filtered = savgol_filter(mu,window_size,order)
+ru_filtered = savgol_filter(ru,window_size,order)
+
+plt.plot(data.index,lb_filtered,label='LB')
+plt.plot(data.index,mb_filtered,label='MB')
+plt.plot(data.index,rb_filtered,label='RB')
+plt.plot(data.index,lm_filtered,label='LM')
+plt.plot(data.index,mm_filtered,label='MM')
+plt.plot(data.index,rb_filtered,label='RB')
+plt.plot(data.index,lu_filtered,label='LU')
+plt.plot(data.index,mu_filtered,label='MU')
+plt.plot(data.index,ru_filtered,label='RU')
+
+plt.legend(loc='upper left')
+plt.show()
+
 
 #%%
 # Extract the columns that we want to plot
@@ -116,3 +145,6 @@ plt.savefig('scatter_plot.png')
 # Show the plot
 plt.show()
 # %%
+
+#Apply filter
+
