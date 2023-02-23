@@ -26,6 +26,7 @@ const byte address[6] = "00001"; //nrf
 const int button1 = A0;
 const int button2 = A1;
 
+
 int button0State = 0;
 int button1State = 0;
 int button2State = 0;
@@ -47,6 +48,8 @@ void tcaselect(uint8_t i) {
 }
 
 void setup() {
+
+  pinMode(A2,INPUT_PULLUP);
 
   pinMode(button1, INPUT_PULLUP);
   pinMode(button2,INPUT_PULLUP);
@@ -145,30 +148,32 @@ void loop() {
 
   */
   delay(2);
+  Serial.print(analogRead(A2));
+  Serial.print(",");
   tcaselect(0);
-  Serial.print(mpr.readPressure(KPA),4);
+  Serial.print(mpr.readPressure(PA),4);
   Serial.print(",");
   tcaselect(1);
   //Serial.print("SD1 sensor reading: ");
-  Serial.print(mpr.readPressure(KPA),4);
+  Serial.print(mpr.readPressure(PA),4);
   Serial.print(",");
   //Serial.println();
   //delay(500);
   tcaselect(2);
   //Serial.print("SD2 sensor reading: ");
-  Serial.print(mpr.readPressure(KPA),4);
+  Serial.print(mpr.readPressure(PA),4);
   Serial.print(",");
 
   tcaselect(3);
-  Serial.print(mpr.readPressure(KPA),4);
+  Serial.print(mpr.readPressure(PA),4);
   Serial.print(",");
 
   tcaselect(4);
-  Serial.print(mpr.readPressure(KPA),4);
+  Serial.print(mpr.readPressure(PA),4);
   Serial.print(",");
 
   tcaselect(5);
-  Serial.print(mpr.readPressure(KPA),4);
+  Serial.print(mpr.readPressure(PA),4);
   Serial.print(",");
 
   Serial.print(button0State);
