@@ -44,12 +44,12 @@ void setup() {
   tcaselect(3);
   tcaselect(4);
   tcaselect(5);
+
   if(!mpr.begin())
   {
     Serial.println("Cannot connect to MicroPressure sensor.");
     while(1);
   }
-
 }
 
 void loop() {
@@ -74,11 +74,11 @@ void loop() {
     for (int col = 0; col < numCols; col++) {
       Serial.print(sensorValues[row][col]);
       if (row == 2 && col == 2) continue;
-      Serial.print(",");
+      Serial.print(","); 
     }
-    //Serial.println();
+    //Serial.println(); 
   }
-  
+
   Serial.print(",");
   tcaselect(0);
   Serial.print(mpr.readPressure(PA));
@@ -106,6 +106,6 @@ void loop() {
   Serial.print(mpr.readPressure(PA));
   Serial.println("");
   // delay before next reading
-  delay(1000);
+  delay(1000); //time interval for measurements
   
 }

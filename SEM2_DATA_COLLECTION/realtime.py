@@ -13,8 +13,9 @@ sensors = [['LU','MU','RU'],
 ['LM','MM','RM'],
 ['LB','MB','RB']]
 
-header = ['Date/Time','LU','MU','RU','LM','MM','RM','LB','MB','RB'] #For CSV file
-fileName = "pressure_data.csv"
+fileTime = datetime.now().strftime('%H-%M-%S')
+header = ['Date/Time','LU','MU','RU','LM','MM','RM','LB','MB','RB',] #For CSV file
+fileName = f"pressure_data_{fileTime}.csv"
 
 # Set up serial communication with Arduino
 ser = serial.Serial(arduino_port,baud)  
@@ -26,6 +27,9 @@ with open(fileName,'w', encoding='UTF8',newline='') as f:
 
 # Set up plot
 fig, ax = plt.subplots(3, 3, figsize=(20, 15))
+major_ticks = np.arange(0, 801, 100)
+minor_ticks = np.arange(0, 801, 50)
+
 lines = []
 for i in range(3):
     for j in range(3):
@@ -34,7 +38,11 @@ for i in range(3):
         ax[i, j].set_xlim(0, 60)  #Desired x-axis limit
         ax[i, j].set_ylim(0, 800)  # Max value of your sensor
         ax[i, j].set_title(sensors[i][j])
-        ax[i, j].grid('true','both')
+        ax[i, j].grid('both','both')
+        #ax[i,j ].set_yticks(range(0,500))
+        ax[i,j].set_yticks(minor_ticks, minor=True)
+        
+        
         #ax[i, j].set_title(f"Sensor {i*3+j+1}")
 
 
@@ -60,7 +68,7 @@ def update_plot(frame):
                     ax[i//3, i%3].set_xlim(line.get_xdata()[0], line.get_xdata()[-1])
 
         data.insert(0,currentTime)
-        print(data) #DEBUG
+        #print(data) #DEBUG
         with open(fileName,'a', encoding='UTF8',newline='') as f:
             writer = csv.writer(f)
             writer.writerow(data)
