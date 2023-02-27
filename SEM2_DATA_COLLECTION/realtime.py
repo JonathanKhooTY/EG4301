@@ -43,14 +43,17 @@ for i in range(3):
 def update_plot(frame):
     try:
         data = ser.readline().decode().rstrip().split(',')
-    
+        airpressureData = data[9:]
+        matpressureData = data[0:9]
+        print(airpressureData)
+        print(matpressureData)
         currentTime = str(datetime.now())
         
 
-        if len(data) == 9:
-            data = [int(x) for x in data]
+        if len(matpressureData) == 9:
+            matpressureData = [int(x) for x in matpressureData]
             for i, line in enumerate(lines):
-                line.set_data(np.arange(len(line.get_xdata())+1), np.append(line.get_ydata(), data[i]))
+                line.set_data(np.arange(len(line.get_xdata())+1), np.append(line.get_ydata(), matpressureData[i]))
                 if len(line.get_xdata()) > 60:
                     line.set_xdata(line.get_xdata()[1:])
                     line.set_ydata(line.get_ydata()[1:])

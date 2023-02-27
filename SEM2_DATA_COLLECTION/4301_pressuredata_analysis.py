@@ -14,7 +14,7 @@ from matplotlib.pyplot import figure
 from scipy.signal import savgol_filter
 
 # Load data into a pandas DataFrame
-data = pd.read_csv('pressure_data3.csv',index_col=False)
+data = pd.read_csv('pressure_data4.csv',index_col=False)
 
 data
 #%%
@@ -76,7 +76,7 @@ plt.ylabel('Pressure')
 textstr = (f'Mean LB: {mean_lb:.2f}\nMean RB: {mean_rb:.2f}\nMean LM: {mean_lm:.2f}\nMean RM: {mean_rm:.2f}\nMean LU: {mean_lu:.2f}\nMean RU: {mean_ru:.2f}\n'
 f'Std Dev LB: {std_dev_lb:.2f}\nStd Dev RB: {std_dev_rb:.2f}\nStd Dev LM: {std_dev_lm:.2f}\nStd Dev RM: {std_dev_rm:.2f}\nStd Dev LU: {std_dev_lu:.2f}\nStd Dev RU: {std_dev_ru:.2f}\n')
 plt.text(0.05, 0.95, textstr, transform=plt.gca().transAxes, fontsize=12, verticalalignment='top')
-
+plt.grid(b=True)
 # Save the plot to a file
 plt.savefig('scatter_plot.png')
 plt.legend(loc="upper left")
@@ -84,7 +84,7 @@ plt.legend(loc="upper left")
 plt.show()
 # %%
 #Plot filtered
-window_size = 30
+window_size = 100
 order = 3
 
 lb_filtered = savgol_filter(lb,window_size,order)
@@ -102,11 +102,11 @@ plt.plot(data.index,mb_filtered,label='MB')
 plt.plot(data.index,rb_filtered,label='RB')
 plt.plot(data.index,lm_filtered,label='LM')
 plt.plot(data.index,mm_filtered,label='MM')
-plt.plot(data.index,rb_filtered,label='RB')
+plt.plot(data.index,rm_filtered,label='RM')
 plt.plot(data.index,lu_filtered,label='LU')
 plt.plot(data.index,mu_filtered,label='MU')
 plt.plot(data.index,ru_filtered,label='RU')
-
+plt.grid(b=True)
 plt.legend(loc='upper left')
 plt.show()
 
