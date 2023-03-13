@@ -6,8 +6,7 @@ arduino_port = "/dev/cu.usbmodem1101"
 baud = 115200
 fileName = "data.csv"
 sensor_data = []
-header = ['Date/Time','Right_Butt','Left_Butt','Right_Mid','Left_Mid','NIL','Left_LowerThigh','Config_1_B0','Config_2_B1','Config_3_B2','Butt_Inflate_B3','Buff_Deflate_B4','Upper_Inflate_B5'
-,'Upper_Deflate_B6','Lower_Inflate_B7','Lower_Deflate_B8']
+header = ['Date/Time','Right_Butt','Left_Mid','Left_Lower','Right_Lower','Right_Mid','Left_Butt']
 with open(fileName,'w', encoding='UTF8',newline='') as f:
         writer = csv.writer(f)
         writer.writerow(header)
@@ -21,18 +20,17 @@ print("Connected to arduino port: " + arduino_port)
 
 
 while (True):
-    getData = ser.readline()
-    dataString = getData.decode('utf-8')
-    parsedData = dataString[0:][:-2]
-    reading = parsedData.split(",")
+    data = ser.readline().decode().rstrip().split(',')
+    airpressureData = data[9:]
+    #matpressureData = data[0:9]
+    #print(airpressureData)
+    #print(matpressureData)
     currentTime = str(datetime.now())
-    reading.insert(0,currentTime)
-    #sensor_data.append(reading)
-    print(reading)
+    airpressureData.insert(0,currentTime)
+    print(airpressureData)
 
-    
     with open(fileName,'a', encoding='UTF8',newline='') as f:
         writer = csv.writer(f)
-        writer.writerow(reading)
+        writer.writerow(airpressureData)
     
     

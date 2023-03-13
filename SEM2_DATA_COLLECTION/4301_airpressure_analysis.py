@@ -25,7 +25,7 @@ data = pd.read_csv('/content/ronald_15Feb.csv',index_col=False)
 
 lb = data['Left_Butt'] #Jocillia formatting
 rb = data['Right_Butt']
-button = data['Butt_Inflate_B3']
+
 data
 
 fig, (ax1, ax2, ax3) = plt.subplots(3, 1,figsize=(30,15))

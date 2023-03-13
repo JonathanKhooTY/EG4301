@@ -14,7 +14,7 @@ from matplotlib.pyplot import figure
 from scipy.signal import savgol_filter
 
 # Load data into a pandas DataFrame
-data = pd.read_csv('pressure_data4.csv',index_col=False)
+data = pd.read_csv('pressure_data_16-18-06.csv',index_col=False)
 
 data
 #%%

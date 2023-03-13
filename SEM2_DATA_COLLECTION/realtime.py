@@ -8,7 +8,7 @@ import csv
 from datetime import datetime
 
 arduino_port = '/dev/cu.usbmodem1101'
-baud = 9600
+baud = 115200
 sensors = [['LU','MU','RU'],
 ['LM','MM','RM'],
 ['LB','MB','RB']]
@@ -25,10 +25,12 @@ with open(fileName,'w', encoding='UTF8',newline='') as f:
         writer = csv.writer(f)
         writer.writerow(header)
 
+
+
 # Set up plot
 fig, ax = plt.subplots(3, 3, figsize=(20, 15))
-major_ticks = np.arange(0, 801, 100)
-minor_ticks = np.arange(0, 801, 50)
+major_ticks = np.arange(0, 1001, 100)
+minor_ticks = np.arange(0, 1001, 50)
 
 lines = []
 for i in range(3):
@@ -36,7 +38,7 @@ for i in range(3):
         line, = ax[i, j].plot([], [])
         lines.append(line)
         ax[i, j].set_xlim(0, 60)  #Desired x-axis limit
-        ax[i, j].set_ylim(0, 800)  # Max value of your sensor
+        ax[i, j].set_ylim(0, 1023)  # Max value of your sensor
         ax[i, j].set_title(sensors[i][j])
         ax[i, j].grid('both','both')
         #ax[i,j ].set_yticks(range(0,500))
@@ -57,7 +59,7 @@ def update_plot(frame):
         print(matpressureData)
         currentTime = str(datetime.now())
         
-
+        
         if len(matpressureData) == 9:
             matpressureData = [int(x) for x in matpressureData]
             for i, line in enumerate(lines):
@@ -66,12 +68,13 @@ def update_plot(frame):
                     line.set_xdata(line.get_xdata()[1:])
                     line.set_ydata(line.get_ydata()[1:])
                     ax[i//3, i%3].set_xlim(line.get_xdata()[0], line.get_xdata()[-1])
-
+        
         data.insert(0,currentTime)
         #print(data) #DEBUG
         with open(fileName,'a', encoding='UTF8',newline='') as f:
             writer = csv.writer(f)
             writer.writerow(data)
+            #
     except KeyboardInterrupt:
         print("Plot closed.")
         if ani.event_source is not None:
