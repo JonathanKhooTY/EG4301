@@ -6,7 +6,7 @@ arduino_port = "/dev/cu.usbmodem1101"
 baud = 115200
 fileName = "data.csv"
 sensor_data = []
-header = ['Date/Time','Right_Butt','Left_Mid','Left_Lower','Right_Lower','Right_Mid','Left_Butt']
+header = ['Date/Time','Right_Butt','Left_Upper','Left_Lower','Right_Lower','Right_Upper','Left_Butt']
 with open(fileName,'w', encoding='UTF8',newline='') as f:
         writer = csv.writer(f)
         writer.writerow(header)

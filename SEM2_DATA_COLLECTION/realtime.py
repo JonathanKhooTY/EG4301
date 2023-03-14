@@ -14,7 +14,7 @@ sensors = [['LU','MU','RU'],
 ['LB','MB','RB']]
 
 fileTime = datetime.now().strftime('%H-%M-%S')
-header = ['Date/Time','LU','MU','RU','LM','MM','RM','LB','MB','RB',] #For CSV file
+header = ['Date/Time','LL','ML','RL','LU','MU','RU','LB','MB','RB',] #For CSV file
 fileName = f"pressure_data_{fileTime}.csv"
 
 # Set up serial communication with Arduino
