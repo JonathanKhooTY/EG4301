@@ -2,10 +2,12 @@ import serial
 import csv
 from datetime import datetime
 
+fileTime = str(datetime.now().strftime('%H-%M-%S'))
 arduino_port = "/dev/cu.usbmodem1101"
 baud = 115200
-fileName = "data.csv"
+fileName = f"data_log_{fileTime}.csv"
 sensor_data = []
+
 header = ['Date/Time','LL','ML','RL','LU','MU','RU','LB','MB','RB','AIR_RB','AIR_LU','AIR_LL','AIR_RL','AIR_RU','AIR_LB']
 with open(fileName,'w', encoding='UTF8',newline='') as f:
         writer = csv.writer(f)

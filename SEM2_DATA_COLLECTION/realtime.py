@@ -13,7 +13,7 @@ sensors = [['LU','MU','RU'],
 ['LM','MM','RM'],
 ['LB','MB','RB']]
 
-fileTime = datetime.now().strftime('%H:%M:%S')
+fileTime = datetime.now().strftime('%H-%M-%S')
 header = ['Date/Time','LL','ML','RL','LU','MU','RU','LB','MB','RB','AIR_RB','AIR_LU','AIR_LL','AIR_RL','AIR_RU','AIR_LB'] #For CSV file
 fileName = f"pressure_data_{fileTime}.csv"
 
