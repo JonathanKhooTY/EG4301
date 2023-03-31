@@ -82,7 +82,7 @@ def icm_identify(data): #Data format: [RAW SUM PRESSURE, X COORD, Y COORD] AI ne
     raw_sum_Zscore = abs((raw_sum - mean_raw_sum) / std_raw_sum)
     x_coord_Zscore = abs((x_coord - mean_x_coord) / std_x_coord)
     y_coord_Zscore = abs((y_coord - mean_y_coord) / std_y_coord)
-
+    print(f'{raw_sum_Zscore}, {x_coord_Zscore},{y_coord_Zscore} ')
     if raw_sum_Zscore > 2:
          icmcounter_raw_sum += 1
 
@@ -111,7 +111,7 @@ def write_to_file(data):
 
 
 
-threading.Timer(31, threshold_identify).start()#Remember to x+1 after desired time cos timer starts exactly at T=x TO BE SET TO AN HOUR
+threading.Timer(11, threshold_identify).start()#Remember to x+1 after desired time cos timer starts exactly at T=x TO BE SET TO AN HOUR
 starting_time = time.time() #For ICM csv file updating 
 while (True):
     data = ser.readline().decode().rstrip().split(',')
@@ -150,7 +150,7 @@ while (True):
     
     if thresholdObtained:
         #print(f'THRESHOLD OBTAINED: {mean_raw_sum,mean_x_coord,mean_y_coord,std_raw_sum,std_x_coord,std_y_coord}')
-        time_interval = 11 #Update icm csv file every 10 minutes
+        time_interval = 600 #Update icm csv file every 10 minutes 600s
         
         identified_icm = icm_identify(icm_data)
         if time.time() - starting_time >= time_interval:

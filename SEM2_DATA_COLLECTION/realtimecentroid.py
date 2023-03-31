@@ -27,6 +27,11 @@ scatter = ax.scatter([], [])
 
 # Define function to update scatter plot
 def update(i):
+
+    # Remove existing text labels
+    for text in ax.texts:
+        text.remove()
+        
     # Read serial data
     data = ser.readline().decode().rstrip().split(',')
     matpressureData = data[0:9]
@@ -48,6 +53,8 @@ def update(i):
     print("Centroid coordinates: ({:.3f}, {:.3f})\n".format(centroid_col, centroid_row))
     # Update scatter plot
     scatter.set_offsets([(centroid_col, centroid_row)])
+    # Add total pressure label
+    ax.text(centroid_col+0.1, centroid_row+0.1, 'Total Pressure: {:.3f}'.format(total_pressure))
 
     return scatter,
 
