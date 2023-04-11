@@ -35,7 +35,8 @@ def update(i):
     # Read serial data
     data = ser.readline().decode().rstrip().split(',')
     matpressureData = data[0:9]
-    
+    #matpressureData = [(float(x) - 21.0) if float(x) >= 21 else 0 for x in matpressureData]  #Correction for the non-zero start state
+
     if len(matpressureData) != rows*cols:
         return scatter,
 
@@ -48,13 +49,22 @@ def update(i):
     # Calculate weighted average
     weighted_row = np.sum(np.sum(pressure, axis=1) * np.arange(rows))
     weighted_col = np.sum(np.sum(pressure, axis=0) * np.arange(cols))
-    centroid_row = weighted_row / total_pressure
-    centroid_col = weighted_col / total_pressure
+    if total_pressure == 0:
+        centroid_row = 1.0
+        centroid_col = 1.0
+        
+    else:
+        centroid_row = weighted_row / total_pressure
+        centroid_col = weighted_col / total_pressure
+        
     print("Centroid coordinates: ({:.3f}, {:.3f})\n".format(centroid_col, centroid_row))
     # Update scatter plot
     scatter.set_offsets([(centroid_col, centroid_row)])
     # Add total pressure label
-    ax.text(centroid_col+0.1, centroid_row+0.1, 'Total Pressure: {:.3f}'.format(total_pressure))
+    ax.text(centroid_col+0.1, centroid_row+0.1, 'Total Pressure: {:.3f}'.format(total_pressure-189))
+    ax.text(centroid_col+0.1, centroid_row+0.2, 'Coordinates: {:.3f}'.format(centroid_col))
+    ax.text(centroid_col+0.7, centroid_row+0.2, '{:.3f}'.format(centroid_row))
+    
 
     return scatter,
 

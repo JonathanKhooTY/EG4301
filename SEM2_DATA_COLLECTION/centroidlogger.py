@@ -117,9 +117,12 @@ while (True):
     data = ser.readline().decode().rstrip().split(',')
     airpressureData = data[9:]
     matpressureData = data[0:9]
+    #matpressureData = [(float(x) - 21.0) if float(x) >= 21 else 0 for x in matpressureData]  #Correction for the non-zero start state
+
     #print(airpressureData)
-    #print(matpressureData)
+    
     currentTime = str(datetime.now().strftime('%H:%M:%S'))
+    print(f'{currentTime}   Raw pressure readings: {matpressureData}')
     data.insert(0,currentTime)
 
     # Centroid calculation
@@ -132,7 +135,8 @@ while (True):
     # Calculate weighted average
     weighted_row = np.sum(np.sum(pressure, axis=1) * np.arange(rows))
     weighted_col = np.sum(np.sum(pressure, axis=0) * np.arange(cols))
-    centroid_row = weighted_row / total_pressure
+    
+    centroid_row = weighted_row / total_pressure  #Maintain this even if total_pressure == 0 to allow for NaN in CSV
     centroid_col = weighted_col / total_pressure
     #print("Centroid coordinates: ({:.3f}, {:.3f})\n".format(centroid_col, centroid_row))
     #rawSum = sum(map(float, matpressureData))
